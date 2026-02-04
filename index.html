@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeMaster Pro - Master Stock Trading</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-chart-line"></i>
+                <span>TradeMaster Pro</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#demo">Free Demo</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-cart" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="btn-primary" id="loginBtn" onclick="showLogin()">Login</button>
+                <div class="user-menu hidden" id="userMenu">
+                    <img src="https://via.placeholder.com/40" alt="User" id="userAvatar">
+                    <span id="userName">User</span>
+                    <button onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg-animation">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <div class="hero-badge">
+                    <i class="fas fa-fire"></i>
+                    <span>#1 Trading Education Platform in India</span>
+                </div>
+                <h1>Master the Art of <span class="gradient-text">Stock Trading</span></h1>
+                <p>Learn from SEBI registered experts. Real market strategies, live trading sessions, and lifetime community access. Start your journey to financial freedom today.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary btn-large pulse-btn" onclick="scrollToSection('courses')">
+                        Explore Courses <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn-play" onclick="playDemoVideo()">
+                        <i class="fas fa-play"></i>
+                        <span>Watch Free Demo</span>
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3 id="statStudents">50K+</h3>
+                        <p>Active Traders</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="statCourses">20+</h3>
+                        <p>Premium Courses</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="statSuccess">94%</h3>
+                        <p>Success Rate</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="statRating">4.9</h3>
+                        <p>⭐ Rating</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual" data-aos="fade-left">
+                <div class="floating-cards">
+                    <div class="float-card profit">
+                        <i class="fas fa-arrow-trend-up"></i>
+                        <div>
+                            <span>Today's Profit</span>
+                            <strong>+₹12,450</strong>
+                        </div>
+                    </div>
+                    <div class="float-card course">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div>
+                            <span>Active Course</span>
+                            <strong>Advanced Options</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&q=80" alt="Trading Dashboard" class="hero-img">
+                    <div class="image-glow"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Live Courses Ticker -->
+    <div class="ticker-wrapper">
+        <div class="ticker">
+            <div class="ticker-content" id="tickerContent">
+                <!-- Dynamic courses ticker -->
+            </div>
+        </div>
+    </div>
+
+    <!-- All Courses Section -->
+    <section id="courses" class="courses-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">OUR COURSES</span>
+                <h2>Master Every Market</h2>
+                <p>From stock market basics to advanced algorithmic trading - we have courses for every level</p>
+            </div>
+            
+            <div class="filters" data-aos="fade-up">
+                <button class="filter-btn active" onclick="filterCourses('all')">All Courses</button>
+                <button class="filter-btn" onclick="filterCourses('Stock Market')">Stock Market</button>
+                <button class="filter-btn" onclick="filterCourses('Options')">Options</button>
+                <button class="filter-btn" onclick="filterCourses('Forex')">Forex</button>
+                <button class="filter-btn" onclick="filterCourses('Crypto')">Crypto</button>
+            </div>
+
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Courses loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <div class="section-header light" data-aos="fade-up">
+                <span class="section-tag">FREE PREVIEW</span>
+                <h2>Try Before You Buy</h2>
+                <p>Watch free demo lessons from our most popular courses</p>
+            </div>
+            
+            <div class="demo-showcase" data-aos="fade-up">
+                <div class="demo-player">
+                    <div class="video-container" id="demoPlayer">
+                        <div class="video-placeholder" onclick="playDemoVideo()">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Click to Play Demo</span>
+                        </div>
+                    </div>
+                    <div class="demo-info">
+                        <h3 id="demoTitle">Introduction to Stock Market</h3>
+                        <p id="demoDesc">Learn the basics of how stock market works, types of orders, and market participants. This is a free preview from our flagship course.</p>
+                        <div class="demo-meta">
+                            <span><i class="fas fa-clock"></i> 15:30 mins</span>
+                            <span><i class="fas fa-signal"></i> Beginner</span>
+                            <span class="free-tag">FREE</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-playlist" id="demoPlaylist">
+                    <!-- Demo videos loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">WHY CHOOSE US</span>
+                <h2>Everything You Need to Succeed</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="icon-box">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Expert Mentors</h3>
+                    <p>Learn from SEBI registered research analysts with 10+ years of market experience</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon-box">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>HD Video Lessons</h3>
+                    <p>Crystal clear 4K video content with screen recordings and live market analysis</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-box">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Private Community</h3>
+                    <p>Access to exclusive Telegram group with daily trade calls and market updates</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="icon-box">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Certified Course</h3>
+                    <p>Get industry recognized certificate upon completion to boost your career</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="icon-box">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Lifetime Access</h3>
+                    <p>Watch anytime, anywhere on mobile, tablet or desktop. Content never expires</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="icon-box">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Get your queries answered within hours by our dedicated support team</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">SUCCESS STORIES</span>
+                <h2>What Our Students Say</h2>
+            </div>
+            
+            <div class="testimonials-slider" id="testimonialsSlider">
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Best investment I ever made! Recovered course fee in first week of trading. Rajesh sir's strategies are golden."</p>
+                    <div class="user">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                        <div>
+                            <strong>Amit Sharma</strong>
+                            <span>Software Engineer, Bangalore</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"From zero knowledge to consistent profits in 3 months. The options course changed my life completely."</p>
+                    <div class="user">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+                        <div>
+                            <strong>Priya Patel</strong>
+                            <span>Homemaker, Mumbai</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Finally understood how institutional money moves. The price action course is worth 10x the price."</p>
+                    <div class="user">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User">
+                        <div>
+                            <strong>Rahul Verma</strong>
+                            <span>Business Owner, Delhi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2>Ready to Start Your Trading Journey?</h2>
+                <p>Join 50,000+ successful traders today. 7-day money back guarantee.</p>
+                <button class="btn-white btn-large" onclick="scrollToSection('courses')">
+                    Get Started Now <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info" data-aos="fade-right">
+                    <span class="section-tag">GET IN TOUCH</span>
+                    <h2>Have Questions?</h2>
+                    <p>Our team is here to help you 24/7. Reach out via any channel below.</p>
+                    
+                    <div class="info-items">
+                        <div class="info-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <span>Phone</span>
+                                <strong id="contactPhone">+91 98765 43210</strong>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <span>Email</span>
+                                <strong id="contactEmail">support@trademasterpro.com</strong>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <span>Address</span>
+                                <strong>Mumbai, Maharashtra, India</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" data-aos="fade-left" onsubmit="handleContactSubmit(event)">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-full">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="brand">
+                        <i class="fas fa-chart-line"></i>
+                        <span>TradeMaster Pro</span>
+                    </div>
+                    <p>India's most trusted stock market education platform. Empowering traders since 2020.</p>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#courses">All Courses</a></li>
+                        <li><a href="#demo">Free Demo</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h4>Stay Updated</h4>
+                    <p>Get free market analysis and trading tips weekly.</p>
+                    <div class="subscribe">
+                        <input type="email" placeholder="Enter your email">
+                        <button class="btn-primary">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 TradeMaster Pro. All rights reserved.</p>
+                <p class="admin-link"><a href="admin.html">Admin Login</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button onclick="toggleCart()" class="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <strong id="cartTotal">₹0</strong>
+            </div>
+            <button class="btn-primary btn-full" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeLogin()"><i class="fas fa-times"></i></button>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                <button class="tab-btn" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+            
+            <div class="tab-content" id="loginTab">
+                <h2>Welcome Back</h2>
+                <p>Login to access your courses</p>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPass" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary btn-full">Login</button>
+                </form>
+            </div>
+            
+            <div class="tab-content hidden" id="signupTab">
+                <h2>Create Account</h2>
+                <p>Start your trading journey today</p>
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="signupName" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="signupEmail" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="signupPhone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signupPass" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary btn-full">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div class="modal video-modal" id="videoModal">
+        <div class="modal-content video-content">
+            <button class="modal-close" onclick="closeVideoModal()"><i class="fas fa-times"></i></button>
+            <div class="video-player-wrapper">
+                <video id="mainVideoPlayer" controls>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="video-details">
+                <h3 id="videoPlayerTitle">Video Title</h3>
+                <p id="videoPlayerDesc">Description</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Detail Modal -->
+    <div class="modal course-modal" id="courseModal">
+        <div class="modal-content course-content">
+            <button class="modal-close" onclick="closeCourseModal()"><i class="fas fa-times"></i></button>
+            <div class="course-detail-header">
+                <img id="modalCourseImage" src="" alt="Course">
+                <div class="course-detail-info">
+                    <span class="badge" id="modalCourseBadge">Bestseller</span>
+                    <h2 id="modalCourseTitle">Course Title</h2>
+                    <p id="modalCourseDesc">Description</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-signal"></i> <span id="modalCourseLevel">Beginner</span></span>
+                        <span><i class="fas fa-clock"></i> <span id="modalCourseDuration">12 Hours</span></span>
+                        <span><i class="fas fa-user"></i> <span id="modalCourseStudents">1000+ students</span></span>
+                    </div>
+                    <div class="course-price-large">
+                        <span class="current-price" id="modalCoursePrice">₹1,999</span>
+                        <span class="original-price" id="modalCourseOriginal">₹3,999</span>
+                        <span class="discount-badge">50% OFF</span>
+                    </div>
+                    <button class="btn-primary btn-large" id="enrollBtn" onclick="enrollCourse()">
+                        Enroll Now <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="course-curriculum">
+                <h3>Course Content</h3>
+                <div class="curriculum-list" id="curriculumList">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal payment-modal" id="paymentModal">
+        <div class="modal-content payment-content">
+            <button class="modal-close" onclick="closePaymentModal()"><i class="fas fa-times"></i></button>
+            <h2>Complete Your Enrollment</h2>
+            
+            <div class="payment-summary">
+                <img id="paymentCourseImage" src="" alt="Course">
+                <div>
+                    <h3 id="paymentCourseName">Course Name</h3>
+                    <p id="paymentCoursePrice">₹1,999</p>
+                </div>
+            </div>
+            
+            <div class="payment-methods">
+                <h4>Select Payment Method</h4>
+                
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="upi" checked onchange="showPaymentDetails('upi')">
+                    <div class="option-content">
+                        <i class="fas fa-qrcode"></i>
+                        <div>
+                            <strong>UPI Payment</strong>
+                            <span>Google Pay, PhonePe, Paytm</span>
+                        </div>
+                    </div>
+                </label>
+                
+                <div class="payment-details" id="upiDetails">
+                    <div class="upi-qr">
+                        <div id="qrcode">QR Code will appear here</div>
+                        <p>UPI ID: <strong id="upiIdDisplay">yourupi@upi</strong></p>
+                        <button class="btn-secondary" onclick="copyUpi()">Copy UPI ID</button>
+                    </div>
+                </div>
+                
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="card" onchange="showPaymentDetails('card')">
+                    <div class="option-content">
+                        <i class="fas fa-credit-card"></i>
+                        <div>
+                            <strong>Card Payment</strong>
+                            <span>Credit/Debit Card</span>
+                        </div>
+                    </div>
+                </label>
+                
+                <div class="payment-details hidden" id="cardDetails">
+                    <div class="form-group">
+                        <input type="text" placeholder="Card Number" maxlength="16">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="MM/YY" maxlength="5">
+                        <input type="text" placeholder="CVV" maxlength="3">
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-primary btn-full" onclick="confirmPayment()">
+                Pay Now <span id="payButtonAmount">₹1,999</span>
+            </button>
+            
+            <p class="secure-note"><i class="fas fa-lock"></i> Secure 256-bit SSL encrypted</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
